@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 )
 
-// DefaultLogField echo default log fields.
-type DefaultLogField struct {
+// AccessLogField echo default log fields.
+type AccessLogField struct {
 	Type         string `json:"type"`
 	Status       int    `json:"status"`
 	Method       string `json:"method"`
@@ -13,28 +13,28 @@ type DefaultLogField struct {
 	UserAgent    string `json:"userAgent"`
 	RemoteIP     string `json:"remoteIp"`
 	ForwardedFor string `json:"forwardedFor"`
-	Latency      int    `json:"latency"`
+	Elapsed      int    `json:"elapsed"`
 	Error        string `json:"error"`
 	RequestID    string `json:"requestId"`
 }
 
 // ToMap struct attributes to map
-func (d *DefaultLogField) ToMap() map[string]interface{} {
+func (a *AccessLogField) ToMap() map[string]interface{} {
 	return map[string]interface{}{
-		"type":         d.Type,
-		"method":       d.Method,
-		"status":       d.Status,
-		"path":         d.Path,
-		"userAgent":    d.UserAgent,
-		"remoteIp":     d.RemoteIP,
-		"forwardedFor": d.ForwardedFor,
-		"latency":      d.Latency,
-		"error":        d.Error,
-		"requestId":    d.RequestID,
+		"type":         a.Type,
+		"status":       a.Status,
+		"method":       a.Method,
+		"path":         a.Path,
+		"userAgent":    a.UserAgent,
+		"remoteIp":     a.RemoteIP,
+		"forwardedFor": a.ForwardedFor,
+		"elapsed":      a.Elapsed,
+		"error":        a.Error,
+		"requestId":    a.RequestID,
 	}
 }
 
 // ToJSON struct attributes to json
-func (d *DefaultLogField) ToJSON() ([]byte, error) {
-	return json.Marshal(d)
+func (a *AccessLogField) ToJSON() ([]byte, error) {
+	return json.Marshal(a)
 }
