@@ -10,7 +10,7 @@ type LoggingFunc func(logger gwlog.Logger, param *Parameter, c echo.Context) err
 
 // DefaultLoggingFunc is default write log function
 func DefaultLoggingFunc(logger gwlog.Logger, param *Parameter, _ echo.Context) error {
-	p := createAttributeByParameter(param)
+	p := ConvertAccessLogFieldByParameter(param)
 	logger.WithFields(p.ToMap()).Info(p.Method + "\x20" + p.Path)
 	return nil
 }

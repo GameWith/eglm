@@ -11,21 +11,21 @@ type Parameter struct {
 	RemoteIP  string
 	Referer   string
 	UserAgent string
-	Latency   int
+	Elapsed   int
 	BytesIn   string
 	BytesOut  string
 	Error     error
 }
 
-func createAttributeByParameter(param *Parameter) *DefaultLogField {
-	f := &DefaultLogField{
+func ConvertAccessLogFieldByParameter(param *Parameter) *AccessLogField {
+	f := &AccessLogField{
 		Type:      "ACCESS",
 		Status:    param.Status,
 		Method:    param.Method,
 		Path:      param.Path,
 		UserAgent: param.UserAgent,
 		RemoteIP:  param.RemoteIP,
-		Latency:   param.Latency,
+		Elapsed:   param.Elapsed,
 		RequestID: param.ID,
 	}
 	if param.Error != nil {

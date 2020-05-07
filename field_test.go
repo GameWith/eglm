@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestDefaultLogField_ToMap(t *testing.T) {
+func TestAccessLogField_ToMap(t *testing.T) {
 	type fields struct {
 		Type         string
 		Status       int
@@ -14,7 +14,7 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 		UserAgent    string
 		RemoteIP     string
 		ForwardedFor string
-		Latency      int
+		Elapsed      int
 		Error        string
 		RequestID    string
 	}
@@ -34,7 +34,7 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 				"userAgent":    "",
 				"remoteIp":     "",
 				"forwardedFor": "",
-				"latency":      0,
+				"elapsed":      0,
 				"error":        "",
 				"requestId":    "",
 			},
@@ -49,7 +49,7 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 				UserAgent:    "a",
 				RemoteIP:     "a",
 				ForwardedFor: "a",
-				Latency:      1111,
+				Elapsed:      1111,
 				Error:        "a",
 				RequestID:    "a",
 			},
@@ -61,7 +61,7 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 				"userAgent":    "a",
 				"remoteIp":     "a",
 				"forwardedFor": "a",
-				"latency":      1111,
+				"elapsed":      1111,
 				"error":        "a",
 				"requestId":    "a",
 			},
@@ -69,7 +69,7 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &DefaultLogField{
+			d := &AccessLogField{
 				Type:         tt.fields.Type,
 				Status:       tt.fields.Status,
 				Method:       tt.fields.Method,
@@ -77,18 +77,18 @@ func TestDefaultLogField_ToMap(t *testing.T) {
 				UserAgent:    tt.fields.UserAgent,
 				RemoteIP:     tt.fields.RemoteIP,
 				ForwardedFor: tt.fields.ForwardedFor,
-				Latency:      tt.fields.Latency,
+				Elapsed:      tt.fields.Elapsed,
 				Error:        tt.fields.Error,
 				RequestID:    tt.fields.RequestID,
 			}
 			if got := d.ToMap(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DefaultLogField.ToMap() = %v, want %v", got, tt.want)
+				t.Errorf("AccessLogField.ToMap() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestDefaultLogField_ToJSON(t *testing.T) {
+func TestAccessLogField_ToJSON(t *testing.T) {
 	type fields struct {
 		TraceID      string
 		Type         string
@@ -98,7 +98,7 @@ func TestDefaultLogField_ToJSON(t *testing.T) {
 		UserAgent    string
 		RemoteIP     string
 		ForwardedFor string
-		Latency      int
+		Elapsed      int
 		Error        string
 		RequestID    string
 	}
@@ -118,17 +118,17 @@ func TestDefaultLogField_ToJSON(t *testing.T) {
 				UserAgent:    "a",
 				RemoteIP:     "a",
 				ForwardedFor: "a",
-				Latency:      11111,
+				Elapsed:      11111,
 				Error:        "a",
 				RequestID:    "a",
 			},
-			want:    []byte(`{"type":"a","status":1,"method":"a","path":"a","userAgent":"a","remoteIp":"a","forwardedFor":"a","latency":11111,"error":"a","requestId":"a"}`),
+			want:    []byte(`{"type":"a","status":1,"method":"a","path":"a","userAgent":"a","remoteIp":"a","forwardedFor":"a","elapsed":11111,"error":"a","requestId":"a"}`),
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &DefaultLogField{
+			d := &AccessLogField{
 				Type:         tt.fields.Type,
 				Status:       tt.fields.Status,
 				Method:       tt.fields.Method,
@@ -136,17 +136,17 @@ func TestDefaultLogField_ToJSON(t *testing.T) {
 				UserAgent:    tt.fields.UserAgent,
 				RemoteIP:     tt.fields.RemoteIP,
 				ForwardedFor: tt.fields.ForwardedFor,
-				Latency:      tt.fields.Latency,
+				Elapsed:      tt.fields.Elapsed,
 				Error:        tt.fields.Error,
 				RequestID:    tt.fields.RequestID,
 			}
 			got, err := d.ToJSON()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("DefaultLogField.ToJSON() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AccessLogField.ToJSON() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DefaultLogField.ToJSON() = %v, want %v", string(got), string(tt.want))
+				t.Errorf("AccessLogField.ToJSON() = %v, want %v", string(got), string(tt.want))
 			}
 		})
 	}

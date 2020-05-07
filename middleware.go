@@ -3,6 +3,7 @@ package eglm
 import (
 	"github.com/GameWith/gwlog"
 	"github.com/labstack/echo/v4"
+
 	"strconv"
 	"time"
 )
@@ -70,7 +71,7 @@ func loggingHandle(c echo.Context, next echo.HandlerFunc, fn LoggingFunc) error 
 		RemoteIP:  c.RealIP(),
 		Referer:   req.Referer(),
 		UserAgent: req.UserAgent(),
-		Latency:   int(stop.Sub(start).Milliseconds()),
+		Elapsed:   int(stop.Sub(start).Milliseconds()),
 		BytesIn:   bytesIn,
 		BytesOut:  strconv.FormatInt(res.Size, 10),
 		Error:     err,
