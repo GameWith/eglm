@@ -1,4 +1,4 @@
-module github.com/GameWith/eglm
+module github.com/GameWith/eglm/v2
 
 go 1.13
 
